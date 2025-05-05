@@ -9,6 +9,7 @@
     <link rel="apple-touch-icon" href="images/cute-180.png">
     <link rel="manifest" href="manifest.json">
     <title>My App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         body {
             margin: 0;
@@ -20,25 +21,53 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            transition: background-color 0.5s ease;
+            transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
         }
         .main-image {
             width: 100%;
-            max-width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: -150px;
+            left: 0;
+            transition: opacity 0.8s ease;
+        }
+        .main-image img {
+            width: 100%;
             height: auto;
-            display: block;
-            margin-top: 10vh;
-            transition: opacity 0.5s ease;
+            object-fit: contain;
+        }
+        .swiper {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .swiper.visible {
+            opacity: 1;
+        }
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+        }
+        .swiper-slide img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
         }
         .loader {
             width: 80px;
             height: 80px;
-            border: 8px solid #feb42d;
+            /* border: 8px solid #feb42d; */
             border-top: 8px solid #ff3b3c;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: 120px;
-            transition: opacity 0.5s ease;
+            margin-bottom: 240px;
+            transition: all 0.8s ease;
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -47,18 +76,89 @@
     </style>
 </head>
 <body>
-    <img src="images/main.png" alt="Main Image" class="main-image">
+    <div class="main-image">
+        <img src="images/main.png" alt="Main Image">
+    </div>
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="images/t1.png" alt="Image 1">
+            </div>
+            <div class="swiper-slide">
+                <img src="images/t2.png" alt="Image 2">
+            </div>
+            <div class="swiper-slide">
+                <img src="images/t3.png" alt="Image 3">
+            </div>
+            <div class="swiper-slide">
+                <img src="images/t4.png" alt="Image 4">
+            </div>
+            <div class="swiper-slide">
+                <img src="images/t5.png" alt="Image 5">
+            </div>
+            <div class="swiper-slide">
+                <img src="images/t6.png" alt="Image 6">
+            </div>
+            <div class="swiper-slide">
+                <img src="images/t7.png" alt="Image 7">
+            </div>
+            <div class="swiper-slide">
+                <img src="images/t8.png" alt="Image 8">
+            </div>
+        </div>
+    </div>
     <div class="loader"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+        const swiper = new Swiper('.swiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: false,
+            },
+            // Enable touch events
+            touchRatio: 1,
+            touchAngle: 45,
+            touchMoveStopPropagation: true,
+            touchStartPreventDefault: true,
+            touchStartForcePreventDefault: true,
+            touchReleaseOnEdges: true,
+            // Smooth transitions
+            speed: 500,
+            followFinger: true,
+            resistance: true,
+            resistanceRatio: 0.85,
+        });
+
+        // Initial transition after 3 seconds
         setTimeout(() => {
             document.body.style.backgroundColor = '#ffffff';
-            document.querySelector('.main-image').src = 'images/t1.png';
-            document.querySelector('.loader').style.opacity = '0';
+            
+            // Hide main image and show slider
+            const mainImage = document.querySelector('.main-image');
+            const slider = document.querySelector('.swiper');
+            mainImage.style.opacity = '0';
+            slider.classList.add('visible');
+            
+            // Animate loader out
+            const loader = document.querySelector('.loader');
+            loader.style.opacity = '0';
+            
             setTimeout(() => {
-                document.querySelector('.loader').style.display = 'none';
-            }, 500);
-        }, 3000);
+                loader.style.display = 'none';
+                mainImage.style.display = 'none';
+            }, 800);
+        }, 3000000);
     </script>
 </body>
 </html> 
