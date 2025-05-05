@@ -2,7 +2,7 @@
     "name": "My App",
     "short_name": "MyApp",
     "description": "A web application that can be saved to home screen",
-    "start_url": "/",
+    "start_url": "/sfors/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
